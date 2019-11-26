@@ -6,15 +6,16 @@ float max_vector(float *vector, int N);
 
 //ejecuta el codigo
 int main (int argc, char **argv){
-    int param = atoi(argc[1]);
+    int param = atoi(argv[1]);
+    int Cespacio;
     if(param == 10){
-        int Cespacio = 30;
+         Cespacio = 10;
     }
-    else if(param == 30){
-        int Cespacio = 10;
+    else if(param == 50){
+         Cespacio = 50;
     }
     else{
-        int Cespacio =100;
+         Cespacio =100;
     }
     //variables
     float phi_1 = 0.0;
@@ -28,7 +29,8 @@ int main (int argc, char **argv){
     int CTiempo = (int) (tiempo / deltaT);
     
     
-    ecuacion(s, D, CTiempo, CEspacio, deltaT, deltaX);
+    ecuacion(s, D, CTiempo, Cespacio, deltaT, deltaX);
+	
    
  return 0;
 }
@@ -88,4 +90,36 @@ float max_vector(float *vector, int N){
 }
     return mayor;
 }
-    
+
+void analitica (float s, float d, int Ctiempo, int Cespacio, float deltaT, float deltaX){
+    float anterior[Cespacio];
+    float actual[Cespacio];
+    float maximo[Ctiempo];
+ for ( int l = 0; l < Cespacio; l++){
+            anterior[l] = 0;
+        }
+    for (int i = 0; i < Ctiempo; i ++){
+        std::cout<<std::endl;
+        maximo[i] = max_vector(anterior, Cespacio);
+               
+        for (int k = 0; k < Cespacio; k++){
+            std::cout << anterior[k]<< "\t";
+            
+        }
+        std::cout<<std::endl;
+        for (int j = 0; j < Cespacio; j ++)
+        {
+            if (j == 0 || j == Cespacio-1){
+                actual[j] = 0;
+            }
+            else{
+                actual [j] = (anterior[j]*anterior[j])/2;      
+            }
+           
+        }
+        for ( int l = 0; l < Cespacio; l++){
+            anterior[l] = actual[l];
+        }
+         
+    }
+}
